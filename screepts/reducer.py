@@ -3,6 +3,9 @@
 
 import sys
 from operator import itemgetter
+# import logging
+# logging.basicConfig(filename='my.log', encoding='utf-8', level=logging.DEBUG)
+
 
 current_word = None
 current_count = 0
