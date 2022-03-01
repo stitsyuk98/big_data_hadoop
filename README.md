@@ -206,7 +206,7 @@ Ex: `hdfs dfs -ls hdfs://localhost:9000/`
 
 `hdfs dfs -ls /user/hduser/ppkm.out` - посмотреть результат, смотреть можно только когда появится файл *_SUCCESS
 
-![](https://github.com/stitsyuk98/big_data_hadoop/blob/main/screenshots/Снимок18.PNG)
+![](https://github.com/stitsyuk98/big_data_hadoop/blob/main/screenshots/Снимок19.PNG)
 
 1. Разверните кластер hadoop, соберите WordCount приложение, запустите на датасете ppkm_sentiment и выведите 10 самых редких слов*
 
