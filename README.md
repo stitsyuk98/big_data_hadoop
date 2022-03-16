@@ -223,6 +223,10 @@ Ex: `hdfs dfs -ls hdfs://localhost:9000/`
 
     *Ответ*: нет, так как после этапа map следует операция data shuffle
 
+    *Комент учителя)*
+
+    На самом деле это вопрос с подвохом, так как есть фаза reduce и этап reduce. Фаза Reduce состоит из трёх этапов: шафл, сортировка, свертка. Непосредственно свертка начнется только после окончания сортировки, а это невозможно пока не будут получены все данные от мапперов. При этом, этап шафла можно начать до завершения всех мапперов, изменив поле mapreduce.job.reduce.slowstart.completedmaps в конфиге
+
 
 2. Приведите пример Map only и Reduce задачи.
 
@@ -263,3 +267,154 @@ Ex: `hdfs dfs -ls hdfs://localhost:9000/`
 1. https://habr.com/ru/post/270453/
 
 2. https://habr.com/ru/post/74792/
+
+----
+
+## Урок 4 - Hive & HUE
+
+### **Теория**
+
+- Модель данных:
+    1. Tables/ Таблицы
+    2. Partitions/ Секции
+    3. Buckets/ Сегменты
+
+- DDL:
+    ```
+    CREATE TABLE mytable(id INT, nameSTRING, age INT, city STRING) # объявляем схему
+    COMMENT 'This is a simple table' # комментарий для читаемости
+    PARTITIONED BY (city STRING) # партиционирование
+    ROW FORMAT DELIMITED # строки разделяются  '\n'
+    FIELDS TERMINATED BY ',' # поля разделяются запятой
+    STORED AS TEXTFILE; # хранится в виде текстового файла
+
+    # таблица создается в спец директории warehouse и полностью находиться под управлением Hive
+    ```
+
+    ```
+    CREATE EXTERNAL TABLE my_external_table(id INT, name STRING, age INT, city STRING)
+    LOCATION '/user/ivanov/mytable';
+
+    # таблица не создается в warehouse, у hive сохраняется только ссылка на нее
+    ```
+- DML:
+    ```
+    LOAD DATA LOCAL INPATH '/home/ivanov/peoples.txt'
+    INTO TABLE mytable;
+     
+     # файл peoples.txt находиться в локальной файловой системе и будет скопирован в директорию warehouse
+    ```
+
+    ```
+    LOAD DATA INPATH '/user/ivanov/peoples.txt'
+    INTO TABLE mytable;
+
+    # файл peoples.txt находится в HDFS и будет скопирован в директорию warehouse
+    ```
+- Запросы
+
+    ```
+    SHOW TABLES;
+
+    SELECT p.*, o.*
+    FROM mytable p
+    JOIN orders p
+    ON (p.id = o.id);
+
+    SHOW FUNCTIONS;
+
+    DESCRIBE FUNCTION lenght; # посмотреть описание фун-ции
+
+    ```
+
+- Типы функций:
+    - UDF - применяются построчно
+    - UDAF - используются совместно с GROUP BY оператором
+    - UDTF - применяются на таблицу целиком
+    - можно расширить библиотеку своими функциями, добавив в classpath hive
+
+- 
+
+
+
+### **Практика**
+
+`wget https://downloads.apache.org/hive/hive-2.3.9/apache-hive-2.3.9-bin.tar.gz` - скачать архив с hive
+
+`tar xzf apache-hive-2.3.9-bin.tar.gz` - распаковать архив
+
+Действуют только в текущей сессии:
+
+    `1. export HIVE_HOME=/home/hduser/hive/` - задаем системную переменную, 
+
+    `2. export PATH=$PATH:$HIVE_HOME/bin` - задаем системную переменную, чтобы откуда угодно можно было обращаться к hive
+
+Вставим эти переменные в файлик, чтобы они не затирались при закрытии сессии
+
+`ls -a` - посмотреть скрытыте файлы
+
+`vi .bashrc` - открываем редактор vim
+
+`shift + g` - чтобы переместиться вниз блокнота vi 
+
+`shift + a` - переход в конец файла и включается режим ввода
+
+
+
+`schematool -dbType derby -initSchema` - инициализация бд
+
+`hive` - команда для запуска hive
+
+`hive -e 'show tables;'` - исполнение команды без захода в оболочку
+
+`hive -f show.sql` - запуск скрипта в файле
+
+Поднимим сервер Hive:
+
+`vi ~/hive/conf/hive-site.xml` - создадим файл с настройками
+
+`hiveserver2 &> /dev/null &` - запускаем сервер, вывод логов перенаправляем и консоль возвращаем в свое пользование
+
+`netstat -tulpn` - запущенные порты
+
+`beeline -u jdbc:hive2://localhost:10000` - консольная утилита для подключения к hive **Почему то не подключилось**
+
+`!q` - выход из билайна
+
+
+
+3. Составьте запрос, который выведет имя набора (sets.name) с самым большим количеством деталей (sets.num_parts)
+```
+select name, year, num_parts
+from lego_sets
+where num_parts in (select MAX(num_parts) from lego_sets);
+```
+
+![](https://github.com/stitsyuk98/big_data_hadoop/blob/main/screenshots/Снимок20.PNG)
+
+4. Составьте запрос, который выведет в каком году (sets.year) вышло больше всего наборов
+
+```
+select year, count(year) as count_year
+from lego_sets
+group by year
+order by count_year desc
+limit 1;   
+```
+
+![](https://github.com/stitsyuk98/big_data_hadoop/blob/main/screenshots/Снимок21.PNG)
+
+5. Составьте запрос, который выведет общее количество деталей (inventory_parts.quantity) для каждого из цветов (colors.name)
+
+```
+select c.name, count(p.quantity) as count_quantity
+from lego_inv_parts p
+join lego_colors c on (p.color_id=c.id)
+group by c.name
+order by count_quantity desc
+limit 5;
+```
+
+![](https://github.com/stitsyuk98/big_data_hadoop/blob/main/screenshots/Снимок22.PNG)
+
+6. * Измените Dockerfile так, чтобы вместе с Hadoop устанавливался и запускался Hive
