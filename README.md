@@ -418,3 +418,33 @@ limit 5;
 ![](https://github.com/stitsyuk98/big_data_hadoop/blob/main/screenshots/Снимок22.PNG)
 
 6. * Измените Dockerfile так, чтобы вместе с Hadoop устанавливался и запускался Hive
+
+
+
+## Урок 5 - Форматы хранения
+
+### **Практика**
+
+`show columns from lego_inv_parts;` - показать названия колонок из таблицы
+
+`hdfs dfs -ls /user/hive/warehouse/` - местопопложение файлов, которые залиты как таблицы в hive
+
+`SET parquet.compression=SNAPPY;`
+
+`SET parquet.compression=GZIP;`
+
+`SET parquet.compression=uncompressed;` - установить тип сжатия для паркета
+
+`-du` - disk usage
+
+`create table lego_inv_parts_par_snappy(inventory_id INT, part_num STRING, color_id INT, quantity INT, is_spare STRING) stored as parquet;` - создание таблицы со сжатем
+
+`insert overwrite table lego_inv_parts_par_snappy select * from lego_inv_parts; ` - наполнение таблицы
+
+2. Сравните степень сжатия (отношения несжатого файла к сжатому) таблицы в которой есть колонки типа STRING с таблицей без колонок этого типа
+
+    **Решение**: было создано 2 таблицы без компрессии, для одной были все стобцы типа int(итоговый вес: 1218831, без сжатия 5837588, отношение сжатия 0,2087), для 2ой - string(итоговый вес: 1274900, без сжатия 5837588, отношение сжатия 0,2183). Тип int занимает меньше места.
+
+3. Чем AVRO отличается от CSV?
+
+    **Ответ**: AVRO имеет схему, т е можно разделить файл
