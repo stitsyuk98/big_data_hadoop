@@ -429,6 +429,8 @@ limit 5;
 
 `hdfs dfs -ls /user/hive/warehouse/` - местопопложение файлов, которые залиты как таблицы в hive
 
+![](https://github.com/stitsyuk98/big_data_hadoop/blob/main/screenshots/Снимок22.PNG)
+
 `SET parquet.compression=SNAPPY;`
 
 `SET parquet.compression=GZIP;`
@@ -440,6 +442,8 @@ limit 5;
 `create table lego_inv_parts_par_snappy(inventory_id INT, part_num STRING, color_id INT, quantity INT, is_spare STRING) stored as parquet;` - создание таблицы со сжатем
 
 `insert overwrite table lego_inv_parts_par_snappy select * from lego_inv_parts; ` - наполнение таблицы
+
+![](https://github.com/stitsyuk98/big_data_hadoop/blob/main/screenshots/Снимок24.PNG)
 
 2. Сравните степень сжатия (отношения несжатого файла к сжатому) таблицы в которой есть колонки типа STRING с таблицей без колонок этого типа
 
