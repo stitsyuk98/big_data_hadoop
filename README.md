@@ -429,7 +429,7 @@ limit 5;
 
 `hdfs dfs -ls /user/hive/warehouse/` - местопопложение файлов, которые залиты как таблицы в hive
 
-![](https://github.com/stitsyuk98/big_data_hadoop/blob/main/screenshots/Снимок22.PNG)
+![](https://github.com/stitsyuk98/big_data_hadoop/blob/main/screenshots/Снимок23.PNG)
 
 `SET parquet.compression=SNAPPY;`
 
