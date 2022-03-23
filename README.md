@@ -452,3 +452,30 @@ limit 5;
 3. Чем AVRO отличается от CSV?
 
     **Ответ**: AVRO имеет схему, т е можно разделить файл
+
+
+## Урок 6 - ETL
+
+### **Практика**
+
+Apache sqoop:
+
+    `tar xzf sqoop-1.4.7.bin__hadoop-2.6.0.tar.gz` - распаковать zip файл
+
+    `cp $HIVE_HOME/jdbc/hive-jdbc-2.3.9-standalone.jar $SQOOP_HOME/lib/` - скопировать jar hive в sqoop, чтобы sqoop через jdbc смог обратиться к hive
+
+    `netstat -tulpn | grep 10000` - посмотреть все запущенные порты, с поиском 10000
+    
+    `sqoop list-tables --connect jdbc:hive2://localhost:10000 --driver org.apache.hive.jdbc.HiveDriver` - подключиться к hive и посмотреть какие таблицы в нем есть
+
+Apache flume:
+
+    `flume-ng version` - узнать версию
+
+    `1.25.52`
+
+
+Установите Apache Flume
+Напишите приложение (на bash или python), которое будет периодически писать свои логи или любые другие данные в stdout, после чего настройте сборку этих логов в HDFS через Flume
+Установите Apache NiFi
+Соберите пайплайн в NiFi, который будет читать локальный файл и записывать его в HDFS или наоборот
