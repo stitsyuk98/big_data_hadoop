@@ -468,25 +468,25 @@ Apache sqoop:
     
     `sqoop list-tables --connect jdbc:hive2://localhost:10000 --driver org.apache.hive.jdbc.HiveDriver` - подключиться к hive и посмотреть какие таблицы в нем есть
 
-    ![](https://github.com/stitsyuk98/big_data_hadoop/blob/main/screenshots/Снимок25.PNG)
+![](https://github.com/stitsyuk98/big_data_hadoop/blob/main/screenshots/Снимок25.PNG)
 
 Apache flume:
 
     `flume-ng version` - узнать версию
 
-    [heartbeat.sh](https://github.com/stitsyuk98/big_data_hadoop/blob/main/screepts/heartbeat.sh) - скрипт для 
+[heartbeat.sh](https://github.com/stitsyuk98/big_data_hadoop/blob/main/screepts/heartbeat.sh) - скрипт для 
 
     `flume-ng agent --conf-file /home/hduser/heartbeat.conf --name HeratbeatFlume -Dflume.root.logger=INFO,console` - запускаем приложение
 
-    ![](https://github.com/stitsyuk98/big_data_hadoop/blob/main/screenshots/Снимок26.PNG)
+![](https://github.com/stitsyuk98/big_data_hadoop/blob/main/screenshots/Снимок26.PNG)
 
-    ![](https://github.com/stitsyuk98/big_data_hadoop/blob/main/screenshots/Снимок27.PNG)
+![](https://github.com/stitsyuk98/big_data_hadoop/blob/main/screenshots/Снимок27.PNG)
 
-    ![](https://github.com/stitsyuk98/big_data_hadoop/blob/main/screenshots/Снимок28.PNG)
+![](https://github.com/stitsyuk98/big_data_hadoop/blob/main/screenshots/Снимок28.PNG)
 
     импортируем эти данные в hive:
 
-    ![импортируем эти данные в hive](https://github.com/stitsyuk98/big_data_hadoop/blob/main/screenshots/Снимок29.PNG)
+![импортируем эти данные в hive](https://github.com/stitsyuk98/big_data_hadoop/blob/main/screenshots/Снимок29.PNG)
 
 Apache nifi:
 
@@ -496,6 +496,6 @@ Apache nifi:
 
     `tail -f nifi/logs/nifi-app.log` - убедиться что nifi действительно запустился
 
-    ![](https://github.com/stitsyuk98/big_data_hadoop/blob/main/screenshots/Снимок29.PNG)
+![](https://github.com/stitsyuk98/big_data_hadoop/blob/main/screenshots/Снимок29.PNG)
 
     - к сожалению не удалось подключиться через браузер(ошибка ERR_INVALID_HTTP_RESPONSE)
