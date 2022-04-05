@@ -496,6 +496,6 @@ Apache nifi:
 
     `tail -f nifi/logs/nifi-app.log` - убедиться что nifi действительно запустился
 
-![](https://github.com/stitsyuk98/big_data_hadoop/blob/main/screenshots/Снимок29.PNG)
+![](https://github.com/stitsyuk98/big_data_hadoop/blob/main/screenshots/Снимок30.PNG)
 
     - к сожалению не удалось подключиться через браузер(ошибка ERR_INVALID_HTTP_RESPONSE)
