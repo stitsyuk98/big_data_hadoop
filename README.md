@@ -468,14 +468,34 @@ Apache sqoop:
     
     `sqoop list-tables --connect jdbc:hive2://localhost:10000 --driver org.apache.hive.jdbc.HiveDriver` - подключиться к hive и посмотреть какие таблицы в нем есть
 
+    ![](https://github.com/stitsyuk98/big_data_hadoop/blob/main/screenshots/Снимок25.PNG)
+
 Apache flume:
 
     `flume-ng version` - узнать версию
 
-    `1.25.52`
+    [heartbeat.sh](https://github.com/stitsyuk98/big_data_hadoop/blob/main/screepts/heartbeat.sh) - скрипт для 
 
+    `flume-ng agent --conf-file /home/hduser/heartbeat.conf --name HeratbeatFlume -Dflume.root.logger=INFO,console` - запускаем приложение
 
-Установите Apache Flume
-Напишите приложение (на bash или python), которое будет периодически писать свои логи или любые другие данные в stdout, после чего настройте сборку этих логов в HDFS через Flume
-Установите Apache NiFi
-Соберите пайплайн в NiFi, который будет читать локальный файл и записывать его в HDFS или наоборот
+    ![](https://github.com/stitsyuk98/big_data_hadoop/blob/main/screenshots/Снимок26.PNG)
+
+    ![](https://github.com/stitsyuk98/big_data_hadoop/blob/main/screenshots/Снимок27.PNG)
+
+    ![](https://github.com/stitsyuk98/big_data_hadoop/blob/main/screenshots/Снимок28.PNG)
+
+    импортируем эти данные в hive:
+
+    ![импортируем эти данные в hive](https://github.com/stitsyuk98/big_data_hadoop/blob/main/screenshots/Снимок29.PNG)
+
+Apache nifi:
+
+    `ifconfig` = ip a
+
+    `nifi.sh set-single-user-credentials admin 123456789012` - установка логина и пароля для пользователя
+
+    `tail -f nifi/logs/nifi-app.log` - убедиться что nifi действительно запустился
+
+    ![](https://github.com/stitsyuk98/big_data_hadoop/blob/main/screenshots/Снимок29.PNG)
+
+    - к сожалению не удалось подключиться через браузер(ошибка ERR_INVALID_HTTP_RESPONSE)
