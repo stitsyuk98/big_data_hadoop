@@ -496,6 +496,40 @@ Apache nifi:
 
     `tail -f nifi/logs/nifi-app.log` - убедиться что nifi действительно запустился
 
-![](https://github.com/stitsyuk98/big_data_hadoop/blob/main/screenshots/Снимок29.PNG)
+![](https://github.com/stitsyuk98/big_data_hadoop/blob/main/screenshots/Снимок30.PNG)
 
     - к сожалению не удалось подключиться через браузер(ошибка ERR_INVALID_HTTP_RESPONSE)
+
+
+## Урок 7 - NoSQL
+
+### **Практика**
+
+- Установите HBase
+
+![](https://github.com/stitsyuk98/big_data_hadoop/blob/main/screenshots/Снимок31.PNG)
+
+`hbase shell` - войти в hbase
+
+- Создайте таблицу
+
+![](https://github.com/stitsyuk98/big_data_hadoop/blob/main/screenshots/Снимок32.PNG)
+
+`disable/enable 'tb1'` - отключение/включение таблицы
+
+`is_disabled 'tb1'` - проверка отключеа ли таблица
+
+`put 'tb1', 'fb', 'cf1:org', 'facebook'` - добавление 1 записи в таблицу
+
+![](https://github.com/stitsyuk98/big_data_hadoop/blob/main/screenshots/Снимок33.PNG)
+
+чтобы изменить запись, достаточно сделать put со старым ключем и новым значением
+
+![](https://github.com/stitsyuk98/big_data_hadoop/blob/main/screenshots/Снимок34.PNG)
+
+`deleteall 'tb1', 'mr'` - удаление записей
+
+![](https://github.com/stitsyuk98/big_data_hadoop/blob/main/screenshots/Снимок35.PNG)
+
+![](https://github.com/stitsyuk98/big_data_hadoop/blob/main/screenshots/Снимок36.PNG)
+
